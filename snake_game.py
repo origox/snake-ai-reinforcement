@@ -18,7 +18,7 @@ class Fruit:
         
     def draw(self) -> None:
         fruit_rectangle: Rect = Rect(self.position.x * self.cell_size, self.position.y * self.cell_size, self.cell_size, self.cell_size)
-        pygame.draw.rect(self.screen, (126, 166, 114), fruit_rectangle)
+        pygame.draw.rect(self.screen, (183,50, 50), fruit_rectangle)
 
     def randomize(self) -> None:
         self.x: int = random.randint(0, self.cell_number - 1)
@@ -39,7 +39,7 @@ class Snake:
             x_position: int = int(block.x) * self.cell_size
             y_position: int = int(block.y) * self.cell_size
             block_rect: Rect = Rect(x_position, y_position, self.cell_size, self.cell_size )
-            pygame.draw.rect(self.screen, (183,111, 122), block_rect)
+            pygame.draw.rect(self.screen, (50,50, 192), block_rect)
 
     def move(self) -> None:
         if self.new_block == True:
