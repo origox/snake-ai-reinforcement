@@ -7,6 +7,18 @@ from pygame.math import Vector2
 from pygame.rect import Rect
 from pygame.time import Clock
 
+class Score:
+    def __init__(self, screen: Any, x: int, y: int) -> None:
+        self.x_position: int = x
+        self.y_position: int = y
+        self.screen: Any = screen
+        self.font = pygame.font.SysFont("comicsansms", 22)
+
+
+    def draw(self, score: int) -> None:
+        text = self.font.render("Score: " + str(score), True, (0,0,0))
+        self.screen.blit(text, [0, 0])
+    
 
 class Fruit:
     def __init__(self, screen: Any, cell_size: int, cell_number: int) -> None:
@@ -60,6 +72,7 @@ class Game:
         # initialize pygame
         pygame.init()
         pygame.display.set_caption("Snake")
+        self.score = 0
 
 
         # timing parameters
@@ -77,6 +90,7 @@ class Game:
         # game components
         self.snake: Snake = Snake(self.screen, self.cell_size, self.cell_number)
         self.fruit: Fruit = Fruit(self.screen, self.cell_size, self.cell_number)
+        self.score_board: Score = Score(self.screen, 10,10)
 
     def play_step(self) -> None:
         for event in pygame.event.get():
@@ -111,6 +125,7 @@ class Game:
         self.screen.fill((175, 215, 70))
         self.snake.draw()
         self.fruit.draw()
+        self.score_board.draw(self.score)
         
 
     def _check_collision(self) -> None:
@@ -118,6 +133,7 @@ class Game:
             print("jummy")
             self.fruit.randomize()
             self.snake.add_block()
+            self.score += 1
 
     def _check_fail(self) -> None:
         if not 0 <= self.snake.body[0].x < self.cell_number or not 0 <= self.snake.body[0].y < self.cell_number:
